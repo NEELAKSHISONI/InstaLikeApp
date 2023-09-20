@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
-from myinstalikeapp.views import UserLoginView
-from myinstalikeapp.views import UserRegistrationView
+from MyInstaLikeApp.views import UserLoginView
+from MyInstaLikeApp.views import UserRegistrationView  # Use the new app name here
 
 urlpatterns = [
     path('admin/', admin.site.urls),
