@@ -1,5 +1,9 @@
 from pathlib import Path
 import os
+from django.core.management.utils import get_random_secret_key
+
+SECRET_KEY = get_random_secret_key()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent  # Adjust the number of `parent` calls according to your directory structure
@@ -11,6 +15,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'myfrontend', 'build', 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # settings.py
+ALLOWED_HOSTS = ['*']
+
 
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
@@ -26,9 +32,17 @@ AWS_STORAGE_BUCKET_NAME = 'photobucket'
 AWS_S3_ENDPOINT_URL = 'https://photobucket.sfo3.digitaloceanspaces.com'
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.photobucket.sfo3.digitaloceanspaces.com'
 
+# Use this if you want to serve static files from DigitalOcean Spaces
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Use this for serving media files from DigitalOcean Spaces
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Set this to True if you want to use secure (HTTPS) URLs for your assets
 AWS_S3_SECURE_URLS = False
+
+DEBUG = True
+
 
 # Set this to the directory where your media files will be stored within the bucket
 AWS_LOCATION = 'media'
@@ -55,7 +69,7 @@ INSTALLED_APPS = [
     'channels',
     'storages',
     'corsheaders',
-    'MyInstaLikeApp',  # Use the new app name here
+    'instaapp',  # Use the new app name here
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
@@ -76,7 +90,7 @@ MIDDLEWARE = [
 ]
 
 
-ROOT_URLCONF = 'myinstalikeapp.urls'
+ROOT_URLCONF = 'MyInstaLikeApp.urls'
 
 
 TEMPLATES = [
@@ -107,10 +121,19 @@ ASGI_APPLICATION = 'MyInstaLikeApp.asgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'defaultdb',
+        'USER': 'doadmin',
+        'PASSWORD': 'AVNS_uFeWT1BVIz8Uuua9tqE',
+        'HOST': 'db-postgresql-sfo3-43785-do-user-14562213-0.b.db.ondigitalocean.com',
+        'PORT': '25060',
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
 

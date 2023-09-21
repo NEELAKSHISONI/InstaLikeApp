@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Instagram</h1>
+    </div>
+    <div class="dashboard-sidebar">
+        <ul class="list-unstyled">
+            <li><a href="#" class="btn btn-primary btn-block">Timeline</a></li>
+            <li><a href="#" class="btn btn-primary btn-block">Search</a></li>
+            <li><a href="#" class="btn btn-primary btn-block">Chat</a></li>
+        </ul>
+    </div>
+    <div class="dashboard-main-content">
+        <!-- Timeline Content -->
+        <div class="timeline">
+            <!-- Your timeline content goes here -->
+        </div>
+    </div>
+    <div class="dashboard-actions">
+        <ul class="list-unstyled">
+            <li><a href="#" class="btn btn-success btn-block">Settings</a></li>
+            <li><a href="{% url 'logout' %}" class="btn btn-danger btn-block">Logout</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

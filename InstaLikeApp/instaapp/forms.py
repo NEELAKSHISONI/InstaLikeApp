@@ -3,6 +3,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django import forms
+
+class PostForm(forms.Form):
+    content = forms.CharField(widget=forms.Textarea(attrs={'rows': 3}))
+    image = forms.ImageField(required=False)
+
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
