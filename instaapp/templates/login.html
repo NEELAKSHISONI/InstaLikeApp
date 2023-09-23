@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %} <!-- Add this line to load the static tag -->
+<!-- Inside login.html -->
+<a href="{% url 'dashboard' %}">Dashboard</a>
+
+{% block content %}
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    
+    {{ form.username.label_tag }}
+    {{ form.username }}
+    {{ form.password.label_tag }}
+    {{ form.password }}
+    <button type="submit">Login</button>
+  </form>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+{% endblock %}

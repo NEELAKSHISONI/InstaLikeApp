@@ -1,0 +1,24 @@
+{% load static %}
+<script src="{% static 'js/custom.js' %}"></script>
+<!-- Inside your HTML template -->
+<button onclick="showAlert()">Click Me</button>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <!-- Add any CSS and JavaScript libraries you need -->
+</head>
+<body>
+    <div id="chat-container">
+        <!-- Chat messages will be displayed here -->
+    </div>
+    <input type="text" id="chat-input" placeholder="Type your message">
+    <button id="send-button">Send</button>
+    <!-- Inside your HTML template -->
+
+
+
+    <!-- Add JavaScript code to handle WebSocket communication and chat logic -->
+</body>
+</html>
