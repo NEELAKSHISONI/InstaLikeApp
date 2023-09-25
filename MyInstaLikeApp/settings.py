@@ -1,6 +1,10 @@
 from pathlib import Path
 import os
+import redis
 from django.core.management.utils import get_random_secret_key
+
+import os
+import boto3
 
 SECRET_KEY = get_random_secret_key()
 
@@ -16,15 +20,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # settings.py
 ALLOWED_HOSTS = ['*']
-
-
-REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
-
-
-import os
-import boto3
-
 # Configure the default storage backend
 AWS_ACCESS_KEY_ID = 'DO00NRUZHAX2CQ9HYPGN'
 AWS_SECRET_ACCESS_KEY = 'Y8TBHvne51WDE+t4GhysR+ihWvkT6oM0czEJyxa+oxk'
@@ -61,6 +56,21 @@ MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
 
 
 # Other settings...
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',  # Set to DEBUG for more verbosity
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',  # Set to DEBUG for more verbosity
+    },
+}
+
 
 # Use the new app name here
 INSTALLED_APPS = [
@@ -123,6 +133,31 @@ ASGI_APPLICATION = 'MyInstaLikeApp.asgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# settings.py
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'rediss://chathistoryredis-do-user-14562213-0.b.db.ondigitalocean.com:25061/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            'PASSWORD': 'AVNS_VePqOdgNdEIZ1QLFgKY',
+            'SSL': True,
+        }
+    }
+}
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("rediss://chathistoryredis-do-user-14562213-0.b.db.ondigitalocean.com", 25061/1)],
+        },
+    },
+}
+# settings.py
+
 
 
 DATABASES = {
@@ -142,15 +177,7 @@ DATABASES = {
 
 # settings.py
 
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://chathistoryredis-do-user-14562213-0.b.db.ondigitalocean.com:25061/0",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
-}
+
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
@@ -180,7 +207,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            'hosts': ['rediss://default:AVNS_VePqOdgNdEIZ1QLFgKY@chathistoryredis-do-user-14562213-0.b.db.ondigitalocean.com:25061'],
+            'hosts': ['rediss://AVNS_VePqOdgNdEIZ1QLFgKY@chathistoryredis-do-user-14562213-0.b.db.ondigitalocean.com:25061'],
         },
     },
 }

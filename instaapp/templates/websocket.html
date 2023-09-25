@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Example</title>
+</head>
+<body>
+    <h1>WebSocket Example</h1>
+
+    <script>
+        // Establish a WebSocket connection
+        const socket = new WebSocket("ws://example.com/ws/chat/room_name/");
+
+        // WebSocket event listeners
+        socket.addEventListener("open", (event) => {
+            // Connection is open
+            console.log("WebSocket connection is open:", event);
+
+            // Send a message to the server
+            const message = {
+                message: "Hello, WebSocket server!",
+            };
+            socket.send(JSON.stringify(message));
+        });
+
+        socket.addEventListener("message", (event) => {
+            // Received a message from the server
+            const message = JSON.parse(event.data);
+            console.log("Received message from server:", message);
+
+            // Handle the message (e.g., update the UI)
+            // ...
+        });
+
+        socket.addEventListener("close", (event) => {
+            // Connection is closed
+            console.log("WebSocket connection is closed:", event);
+
+            // Implement reconnection logic if needed
+            // ...
+        });
+
+        socket.addEventListener("error", (event) => {
+            // WebSocket error handling
+            console.error("WebSocket error:", event);
+        });
+
+        // Close the WebSocket connection when done (optional)
+        // socket.close();
+    </script>
+</body>
+</html>

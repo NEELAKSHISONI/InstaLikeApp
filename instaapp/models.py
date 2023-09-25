@@ -9,11 +9,13 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True)
     friends = models.ManyToManyField('self', symmetrical=False)
-
+def get_user_input_default():
+    return input("Enter the default content for the 'content' field: ")
 
 class Post(models.Model):
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    content = models.TextField()
+    content = models.CharField(default=get_user_input_default, max_length= 255)
+
     image = models.ImageField(upload_to='post_images/', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
